@@ -1,0 +1,7 @@
+{
+   'isbn': 'book_a',
+   'title': 'An awesome book",
+   'author': 'Sam Goodauthor',
+   'url': 'www.example.com',
+   'price': '4.99'
+}

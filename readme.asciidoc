@@ -1,0 +1,58 @@
+I've got a file called "booka.json" that has some JSON data about a book, like this:
+
+----
+{
+   'isbn': 'book_a',
+   'title': 'An awesome book",
+   'author': 'Sam Goodauthor',
+   'url': 'www.example.com',
+   'price': '4.99'
+}
+----
+
+I'm working on an API that I will process this file by posting it to a Sinatra app:
+
+
+----
+require 'sinatra'
+require 'json'
+
+post "/process" do
+  raw = request.env["rack.input"].read
+  raw
+end
+----
+
+Here's how I'm calling it from the command line, which is working fine:
+
+$ curl -X POST -F "fileupload=@booka.json" http://localhost:9393/process
+
+It currently returns this, though:
+
+
+$ curl -X POST -F "fileupload=@booka.json" http://localhost:9393/process
+------------------------------d40d551f4be4
+Content-Disposition: form-data; name="fileupload"; filename="booka.json"
+Content-Type: application/octet-stream
+
+{
+   'isbn': 'book_a',
+   'title': 'An awesome book",
+   'author': 'Sam Goodauthor',
+   'url': 'www.example.com',
+   'price': '4.99'
+}
+
+------------------------------d40d551f4be4---
+
+
+My question is: how do I get rid of the cruft and just extract the payload so that I can convert it into JSON object I can work with in Ruby?  My inclination would be to just strip off the first few and last few lines, but I'm wondering if these grow or shrink depending on the request.  
+
+Any thoughts?
+
+Andrew
+
+ps -- I've stuck all this stuff up on GitHub so that you can access it easily unless you have a quick answer.  
+
+
+
